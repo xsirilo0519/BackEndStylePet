@@ -39,19 +39,19 @@ public class MascotasModel {
         this.name = name;
     }
 
-    public Long getPropietario() {
+    public UsuariosModel getPropietario() {
         return propietario;
     }
 
-    public void setPropietario(Long propietario) {
+    public void setPropietario(UsuariosModel propietario) {
         this.propietario = propietario;
     }
 
-    public Integer getTipo() {
+    public TipoModel getTipo() {
         return tipo;
     }
 
-    public void setTipo(Integer tipo) {
+    public void setTipo(TipoModel tipo) {
         this.tipo = tipo;
     }
 }

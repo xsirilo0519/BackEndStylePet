@@ -9,13 +9,19 @@ public class MascotaEntity {
     private Long codigo;
     @Column(nullable = false)
     private String name;
-    @Column(nullable = false)
     private Long propietario;
     @Column(nullable = false)
     private Integer tipo;
 
     public MascotaEntity(){
         super();
+    }
+
+    public MascotaEntity(Long codigo, String name, Integer tipo, Long propietario) {
+        this.codigo=codigo;
+        this.name=name;
+        this.tipo=tipo;
+        this.propietario=propietario;
     }
 
     public Long getCodigo() {

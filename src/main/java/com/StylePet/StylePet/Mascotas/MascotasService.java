@@ -21,6 +21,7 @@ public class MascotasService {
     private MascotasRepository mascotasRepository;
     private UsuariosService usuariosService;
     private TipoService tipoService;
+    private MascotaEntity mascotaEntitys;
 
     @Autowired
     public MascotasService(MascotasRepository mascotasRepository, UsuariosService usuariosService, TipoService tipoService){
@@ -50,28 +51,57 @@ public class MascotasService {
     }
     public MascotasModel guardar(MascotasModel mascota) {
         try{
-            MascotaEntity= convertModelToEntity(mascota);
-            if(!findByCedula(usuarioEntity.getCedula()).isPresent()){
-                usuariosRepository.save(usuarioEntity);
-                return user;
+            MascotaEntity mascotaEntity= convertModelToEntity(mascota);
+            if(usuariosService.findByCedula(mascotaEntity.getPropietario()).isPresent() && (tipoService.buscarById(mascotaEntity.getTipo())!=null)){
+                mascotasRepository.save(mascotaEntity);
+                return mascota;
             }
         }catch (Exception e){
+            System.out.println(e.getMessage());
         }
         return null;
     }
 
-    public MascotaEntity convertModelToEntity(MascotasModel user){
-        if (user.getRol()==null){
-            return new MascotaEntity(user.getCedula(), user.getName(), user.getEmail(), user.getCelular(), user.getContrasena(),1);}
-        return new MascotaEntity(user.getCedula(), user.getName(), user.getEmail(), user.getCelular(), user.getContrasena(),user.getRol().getId());
+    public MascotasModel editar(MascotasModel mascota){
+        try{
+            mascotaEntitys= convertModelToEntity(mascota);
+            if(findByCode(mascotaEntitys.getCodigo()).isPresent()){
+                mascota.setTipo(tipoService.buscarById(mascotaEntitys.getTipo()));
+                UsuarioEntity usuarioEntity=usuariosService.findByCedula(mascotaEntitys.getPropietario()).get();
+                mascota.setPropietario(usuariosService.converEntityToModel(usuarioEntity));
+                mascotasRepository.save(mascotaEntitys);
+                return mascota;
+            }
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+        return null;
     }
 
-    public mas converEntityToModel(MascotaEntity mascota) {
-        if (user.getRol()==null){
-            return new UsuariosModel(user.getCedula(), user.getName(), user.getEmail(), user.getCelular(), user.getContrasena(),null);
+    public boolean eliminar(Long codigo){
+        Optional<MascotaEntity> mascotaEntity=findByCode(codigo);
+        if(mascotaEntity.isPresent()) {
+            mascotasRepository.delete(mascotaEntity.get());
+            return true;
         }
-        RolModel rolModel = rolService.buscarById(user.getRol());
-        return new UsuariosModel(user.getCedula(), user.getName(), user.getEmail(), user.getCelular(), user.getContrasena(),rolModel);
+        return false;
     }
+
+    private Optional<MascotaEntity> findByCode(Long codigo){
+       return (Optional<MascotaEntity>) mascotasRepository.findById(codigo);
+    }
+
+
+    public MascotaEntity convertModelToEntity(MascotasModel mascota){
+        return new MascotaEntity(mascota.getCodigo(), mascota.getName(), mascota.getTipo().getId(), mascota.getPropietario().getCedula());
+    }
+
+//    public MascotasModel converEntityToModel(MascotaEntity mascota) {
+//        if (mascota.getTipo()==null){
+//            return new MascotasModel(mascota.getCodigo(), mascota.getName(), mascota.getTipo(), mascota.getPropietario());
+//        }
+//        TipoModel tipoModel = tipoService.buscarById(mascota.getTipo());
+//        return new MascotasModel(mascota.getCodigo(), mascota.getName(), tipoModel, mascota.getPropietario());
+//    }
 
 }

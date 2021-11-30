@@ -3,6 +3,8 @@ package com.StylePet.StylePet.Usuarios;
 import com.StylePet.StylePet.Mascotas.MascotaEntity;
 import com.StylePet.StylePet.Rol.RolEntity;
 import com.StylePet.StylePet.Rol.RolModel;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.util.List;
@@ -10,6 +12,7 @@ import java.util.List;
 @Entity
 public class UsuarioEntity {
     @Id
+    @Column(updatable = false,unique = true)
     private Long cedula;
     @Column(nullable = false)
     private String name;
@@ -21,8 +24,8 @@ public class UsuarioEntity {
     private String contrasena;
     private Integer rol;
 
-    @OneToMany(cascade = CascadeType.ALL,orphanRemoval = true)
-    @JoinColumn(name = "propietario")
+    @OneToMany(cascade = CascadeType.REMOVE)
+    @JoinColumn(name = "propietario", updatable = false)
     private List<MascotaEntity> misMascotas;
 
     public UsuarioEntity(){
@@ -84,5 +87,13 @@ public class UsuarioEntity {
 
     public void setRol(Integer rol) {
         this.rol = rol;
+    }
+
+    public List<MascotaEntity> getMisMascotas() {
+        return misMascotas;
+    }
+
+    public void setMisMascotas(List<MascotaEntity> misMascotas) {
+        this.misMascotas = misMascotas;
     }
 }

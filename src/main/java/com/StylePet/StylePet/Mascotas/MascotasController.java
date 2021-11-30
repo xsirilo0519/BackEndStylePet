@@ -1,5 +1,6 @@
 package com.StylePet.StylePet.Mascotas;
 
+import com.StylePet.StylePet.Usuarios.UsuariosModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,26 +25,26 @@ public class MascotasController {
     public ResponseEntity<String> guardar(@RequestBody MascotasModel mascotasModel){
         mascotasModel=mascotasService.guardar(mascotasModel);
         if(mascotasModel!= null){
-            return new ResponseEntity<String>("Usuario Registrado",HttpStatus.OK);
+            return new ResponseEntity<String>("Mascota Registrada",HttpStatus.OK);
         }
-        return  new ResponseEntity<String>("La cedula ingresada no es valida o ya se encuentra registrada",HttpStatus.BAD_REQUEST);
+        return  new ResponseEntity<String>("Los no son validos o ya se encuentra registrada la mascota",HttpStatus.BAD_REQUEST);
     }
-
     @PutMapping(value = "/editar")
-    public ResponseEntity<MascotasModel> editar(@RequestBody MascotasModel usuariosModel){
-        usuariosModel=mascotasService.editar(usuariosModel);
-        if(usuariosModel!= null){
-            return new ResponseEntity<MascotasModel>(usuariosModel,HttpStatus.OK);
+    public ResponseEntity<MascotasModel> editar(@RequestBody MascotasModel mascotasModel){
+        mascotasModel=mascotasService.editar(mascotasModel);
+        if(mascotasModel!= null){
+            return new ResponseEntity<MascotasModel>(mascotasModel,HttpStatus.OK);
         }
-        return  new ResponseEntity<>(usuariosModel,HttpStatus.BAD_REQUEST);
+        return  new ResponseEntity<>(mascotasModel,HttpStatus.BAD_REQUEST);
+    }
+    @DeleteMapping(value="/eliminar/{codigo}")
+    public ResponseEntity<String> eliminar(@PathVariable("codigo") Long codigo){
+        if(mascotasService.eliminar(codigo)){
+            return new ResponseEntity<String>("Mascota Eliminada",HttpStatus.OK);
+        }
+        return new ResponseEntity<String>("La mascota no fue encontrado",HttpStatus.BAD_REQUEST);
     }
 
-    @DeleteMapping(value="/eliminar/{cedula}")
-    public ResponseEntity<String> eliminar(@PathVariable("cedula") Long cedula){
-        if(mascotasService.eliminar(cedula)){
-            return new ResponseEntity<String>("Usuario Eliminado",HttpStatus.OK);
-        }
-        return new ResponseEntity<String>("El usuario no fue encontrado",HttpStatus.BAD_REQUEST);
-    }
+
 
 }

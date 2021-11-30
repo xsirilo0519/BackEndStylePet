@@ -13,7 +13,7 @@ public class RolEntity {
     @Column(unique = true,nullable = false)
     private String name;
 
-    @OneToMany(cascade = CascadeType.ALL,orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.REMOVE,orphanRemoval = true)
     @JoinColumn(name = "rol")
     private List<UsuarioEntity> usuarioEntities;
 

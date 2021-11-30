@@ -1,5 +1,6 @@
 package com.StylePet.StylePet.Usuarios;
 
+import com.StylePet.StylePet.Mascotas.MascotaEntity;
 import com.StylePet.StylePet.Rol.RolEntity;
 import com.StylePet.StylePet.Rol.RolModel;
 import com.StylePet.StylePet.Rol.RolRepository;
@@ -56,10 +57,12 @@ public class UsuariosService {
             usuarioEntity= convertModelToEntity(user);
             if(findByCedula(usuarioEntity.getCedula()).isPresent()){
                 user.setRol(rolService.buscarById(usuarioEntity.getRol()));
+                 usuarioEntity.getMisMascotas();
                 usuariosRepository.save(usuarioEntity);
                 return user;
             }
         }catch (Exception e){
+            System.out.println(e.getMessage());
         }
         return null;
     }
@@ -75,8 +78,7 @@ public class UsuariosService {
 
 
     public Optional<UsuarioEntity> findByCedula(Long cedula){
-        Optional<UsuarioEntity> userEntity=usuariosRepository.findById(cedula);
-        return  userEntity;
+        return (Optional<UsuarioEntity>) usuariosRepository.findById(cedula);
     }
 
     public UsuarioEntity convertModelToEntity(UsuariosModel user){
