@@ -76,6 +76,14 @@ public class UsuariosService {
         return false;
     }
 
+    public UsuariosModel login(LoginModel loginModel){
+       Optional<UsuarioEntity> usuarioEntity=  usuariosRepository.findByEmailAndContrasena(loginModel.getEmail(),loginModel.getContrasena());
+        if(usuarioEntity.isPresent()){
+            return converEntityToModel(usuarioEntity.get());
+        }
+        return null;
+    }
+
 
     public Optional<UsuarioEntity> findByCedula(Long cedula){
         return (Optional<UsuarioEntity>) usuariosRepository.findById(cedula);

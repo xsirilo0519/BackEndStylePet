@@ -48,4 +48,13 @@ public class UsuariosController {
         return new ResponseEntity<String>("El usuario no fue encontrado",HttpStatus.BAD_REQUEST);
     }
 
+    @PostMapping(value = "/login")
+    public ResponseEntity<UsuariosModel> login(@RequestBody LoginModel loginModel){
+            UsuariosModel usuariosModel=usuariosService.login(loginModel);
+        if(usuariosModel!= null){
+            return new ResponseEntity<UsuariosModel>(usuariosModel,HttpStatus.OK);
+        }
+        return  new ResponseEntity<>(usuariosModel,HttpStatus.BAD_REQUEST);
+    }
+
 }

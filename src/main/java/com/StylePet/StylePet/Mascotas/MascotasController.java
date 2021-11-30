@@ -27,7 +27,7 @@ public class MascotasController {
         if(mascotasModel!= null){
             return new ResponseEntity<String>("Mascota Registrada",HttpStatus.OK);
         }
-        return  new ResponseEntity<String>("Los no son validos o ya se encuentra registrada la mascota",HttpStatus.BAD_REQUEST);
+        return  new ResponseEntity<String>("Los datos no son validos o ya se encuentra registrada la mascota",HttpStatus.BAD_REQUEST);
     }
     @PutMapping(value = "/editar")
     public ResponseEntity<MascotasModel> editar(@RequestBody MascotasModel mascotasModel){
