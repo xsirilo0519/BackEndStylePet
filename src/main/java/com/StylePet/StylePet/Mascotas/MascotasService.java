@@ -49,13 +49,13 @@ public class MascotasService {
     }
     public MascotasModel guardar(MascotasModel mascota) {
         try{
-            MascotaEntity mascotaEntity= convertModelToEntity(mascota);
-            if(usuariosService.findByCedula(mascotaEntity.getPropietario()).isPresent() && (tipoService.buscarById(mascotaEntity.getTipo())!=null)){
-                mascotasRepository.save(mascotaEntity);
+             mascotaEntitys= convertModelToEntity(mascota);
+            if(usuariosService.findByCedula(mascotaEntitys.getPropietario()).isPresent() && (tipoService.buscarById(mascotaEntitys.getTipo())!=null)){
+                mascotaEntitys.setPropietario(null);
+                mascota=convertEntityToModel(mascotasRepository.save(mascotaEntitys));
                 return mascota;
             }
         }catch (Exception e){
-            System.out.println("\n -------------------------------------------------");
             System.out.println(e.getMessage());
         }
         return null;
@@ -65,14 +65,10 @@ public class MascotasService {
         try{
             mascotaEntitys= convertModelToEntity(mascota);
             if(findByCode(mascotaEntitys.getCodigo()).isPresent()){
-                mascota.setTipo(tipoService.buscarById(mascotaEntitys.getTipo()));
-                UsuarioEntity usuarioEntity=usuariosService.findByCedula(mascotaEntitys.getPropietario()).get();
-                mascota.setPropietario(usuariosService.converEntityToModel(usuarioEntity));
-                mascotasRepository.save(mascotaEntitys);
+                mascota=convertEntityToModel(mascotasRepository.save(mascotaEntitys));
                 return mascota;
             }
         }catch (Exception e){
-            System.out.println("\n -------------------------------------------------");
             System.out.println(e.getMessage());
         }
         return null;
@@ -98,10 +94,13 @@ public class MascotasService {
 
     public MascotasModel convertEntityToModel(MascotaEntity mascota){
             TipoModel tipoModel=tipoService.buscarById(mascota.getTipo());
+            if(mascota.getPropietario()!=null){
             UsuarioEntity usuarioEntity= usuariosService.findByCedula(mascota.getPropietario()).get();
             usuarioEntity.setMisMascotas(null);
             UsuariosModel usuariosModel=usuariosService.converEntityToModel(usuarioEntity);
-        return new MascotasModel(mascota.getCodigo(), mascota.getName(),tipoModel, usuariosModel);
+            return new MascotasModel(mascota.getCodigo(), mascota.getName(),tipoModel, usuariosModel);
+            }
+        return new MascotasModel(mascota.getCodigo(), mascota.getName(),tipoModel, null);
     }
 
 

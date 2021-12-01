@@ -22,12 +22,8 @@ public class MascotasController {
     }
 
     @PostMapping(value = "/agregar")
-    public ResponseEntity<String> guardar(@RequestBody MascotasModel mascotasModel){
-        mascotasModel=mascotasService.guardar(mascotasModel);
-        if(mascotasModel!= null){
-            return new ResponseEntity<String>("Mascota Registrada",HttpStatus.OK);
-        }
-        return  new ResponseEntity<String>("Los datos no son validos o ya se encuentra registrada la mascota",HttpStatus.BAD_REQUEST);
+    public MascotasModel guardar(@RequestBody MascotasModel mascotasModel){
+        return mascotasService.guardar(mascotasModel);
     }
     @PutMapping(value = "/editar")
     public ResponseEntity<MascotasModel> editar(@RequestBody MascotasModel mascotasModel){

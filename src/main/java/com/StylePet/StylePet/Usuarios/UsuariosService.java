@@ -1,5 +1,6 @@
 package com.StylePet.StylePet.Usuarios;
 
+import com.StylePet.StylePet.Mascotas.MascotaEntity;
 import com.StylePet.StylePet.Mascotas.MascotasModel;
 import com.StylePet.StylePet.Rol.RolModel;
 import com.StylePet.StylePet.Rol.RolService;
@@ -47,7 +48,7 @@ public class UsuariosService {
             try{
                 usuarioEntity= convertModelToEntity(user);
                 if(!findByCedula(usuarioEntity.getCedula()).isPresent()){
-                    usuariosRepository.save(usuarioEntity);
+                    user=converEntityToModel(usuariosRepository.save(usuarioEntity));
                     return user;
                 }
             }catch (Exception e){
@@ -59,9 +60,7 @@ public class UsuariosService {
         try{
             usuarioEntity= convertModelToEntity(user);
             if(findByCedula(usuarioEntity.getCedula()).isPresent()){
-                user.setRol(rolService.buscarById(usuarioEntity.getRol()));
-                 usuarioEntity.getMisMascotas();
-                usuariosRepository.save(usuarioEntity);
+                user=converEntityToModel(usuariosRepository.save(usuarioEntity));
                 return user;
             }
         }catch (Exception e){
@@ -87,10 +86,10 @@ public class UsuariosService {
         return null;
     }
 
-
     public Optional<UsuarioEntity> findByCedula(Long cedula){
         return (Optional<UsuarioEntity>) usuariosRepository.findById(cedula);
     }
+
 
     public UsuarioEntity convertModelToEntity(UsuariosModel user){
         if (user.getRol()==null){
@@ -99,17 +98,21 @@ public class UsuariosService {
     }
 
     public UsuariosModel converEntityToModel(UsuarioEntity user) {
-       List<MascotasModel>mascotasModels=new ArrayList<>();
-       if(user.getMisMascotas()!=null){
-                user.getMisMascotas().forEach(x->{
 
-                    mascotasModels.add(new MascotasModel(x.getCodigo(),x.getName(),tipoService.buscarById(x.getTipo()),null));
-                });
-       }
         if (user.getRol()==null){
-            return new UsuariosModel(user.getCedula(), user.getName(), user.getEmail(), user.getCelular(), user.getContrasena(),null,null);
+            return new UsuariosModel(user.getCedula(), user.getName(), user.getEmail(), user.getCelular(), user.getContrasena(),null,ListEntityToModel(user.getMisMascotas()));
         }
         RolModel rolModel = rolService.buscarById(user.getRol());
-        return new UsuariosModel(user.getCedula(), user.getName(), user.getEmail(), user.getCelular(), user.getContrasena(),rolModel,mascotasModels);
+        return new UsuariosModel(user.getCedula(), user.getName(), user.getEmail(), user.getCelular(), user.getContrasena(),rolModel,ListEntityToModel(user.getMisMascotas()));
+    }
+
+    private List<MascotasModel> ListEntityToModel(List<MascotaEntity> list){
+        List<MascotasModel>mascotasModels=new ArrayList<>();
+        if(list!=null){
+            list.forEach(x->{
+                mascotasModels.add(new MascotasModel(x.getCodigo(),x.getName(),tipoService.buscarById(x.getTipo()),null));
+            });
+        }
+        return mascotasModels;
     }
 }
