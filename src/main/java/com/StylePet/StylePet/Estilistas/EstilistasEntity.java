@@ -1,6 +1,7 @@
 package com.StylePet.StylePet.Estilistas;
 
 import com.StylePet.StylePet.Citas.CitaEntity;
+import com.StylePet.StylePet.Turnos.TurnoEntity;
 import com.StylePet.StylePet.Usuarios.UsuarioEntity;
 
 import javax.persistence.*;
@@ -13,13 +14,23 @@ public class EstilistasEntity {
     private Long cedula;
     @Column(unique = true,nullable = false)
     private String name;
+    @OneToMany(cascade = CascadeType.REMOVE,orphanRemoval = true)
+    @JoinColumn(name = "estilista")
+    private List<CitaEntity> citaEntities;
+    @OneToMany(cascade = CascadeType.REMOVE,orphanRemoval = true)
+    @JoinColumn(name = "ced_estilista")
+    private List<TurnoEntity> turnoEntities;
 
     public EstilistasEntity() {
     }
 
-    @OneToMany(cascade = CascadeType.REMOVE,orphanRemoval = true)
-    @JoinColumn(name = "estilista")
-    private List<CitaEntity> citaEntities;
+    public List<TurnoEntity> getTurnoEntities() {
+        return turnoEntities;
+    }
+
+    public void setTurnoEntities(List<TurnoEntity> turnoEntities) {
+        this.turnoEntities = turnoEntities;
+    }
 
     public List<CitaEntity> getCitaEntities() {
         return citaEntities;

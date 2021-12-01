@@ -1,10 +1,11 @@
 package com.StylePet.StylePet.Usuarios;
 
-import com.StylePet.StylePet.Mascotas.MascotaEntity;
-import com.StylePet.StylePet.Rol.RolEntity;
+import com.StylePet.StylePet.Mascotas.MascotasModel;
 import com.StylePet.StylePet.Rol.RolModel;
-import com.StylePet.StylePet.Rol.RolRepository;
 import com.StylePet.StylePet.Rol.RolService;
+import com.StylePet.StylePet.Turnos.TurnosModel;
+import com.StylePet.StylePet.Turnos.TurnosService;
+import com.StylePet.StylePet.TipoMascota.TipoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,11 +20,13 @@ public class UsuariosService {
     private UsuariosRepository usuariosRepository;
     private RolService rolService;
     private UsuarioEntity usuarioEntity;
+    private TipoService tipoService;
 
     @Autowired
-    public UsuariosService (UsuariosRepository usuariosRepository, RolService rolService){
+    public UsuariosService (UsuariosRepository usuariosRepository, RolService rolService, TipoService tipoService){
         this.rolService=rolService;
         this.usuariosRepository=usuariosRepository;
+        this.tipoService=tipoService;
     }
 
     public List<UsuariosModel> findAll(){
@@ -96,11 +99,17 @@ public class UsuariosService {
     }
 
     public UsuariosModel converEntityToModel(UsuarioEntity user) {
+       List<MascotasModel>mascotasModels=new ArrayList<>();
+       if(user.getMisMascotas()!=null){
+                user.getMisMascotas().forEach(x->{
 
+                    mascotasModels.add(new MascotasModel(x.getCodigo(),x.getName(),tipoService.buscarById(x.getTipo()),null));
+                });
+       }
         if (user.getRol()==null){
-            return new UsuariosModel(user.getCedula(), user.getName(), user.getEmail(), user.getCelular(), user.getContrasena(),null);
+            return new UsuariosModel(user.getCedula(), user.getName(), user.getEmail(), user.getCelular(), user.getContrasena(),null,null);
         }
         RolModel rolModel = rolService.buscarById(user.getRol());
-        return new UsuariosModel(user.getCedula(), user.getName(), user.getEmail(), user.getCelular(), user.getContrasena(),rolModel);
+        return new UsuariosModel(user.getCedula(), user.getName(), user.getEmail(), user.getCelular(), user.getContrasena(),rolModel,mascotasModels);
     }
 }

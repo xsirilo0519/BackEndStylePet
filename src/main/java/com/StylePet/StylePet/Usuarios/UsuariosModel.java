@@ -1,8 +1,8 @@
 package com.StylePet.StylePet.Usuarios;
 
 import com.StylePet.StylePet.Mascotas.MascotasModel;
-import com.StylePet.StylePet.Rol.RolEntity;
 import com.StylePet.StylePet.Rol.RolModel;
+import com.StylePet.StylePet.Turnos.TurnosModel;
 
 import java.util.List;
 
@@ -14,16 +14,24 @@ public class UsuariosModel {
     private String celular;
     private String contrasena;
     private RolModel rol;
-
-    public UsuariosModel(Long cedula, String name, String email, String celular, String contrasena,RolModel rol) {
+    private List<MascotasModel> mascotasModels;
+    public UsuariosModel(Long cedula, String name, String email, String celular, String contrasena, RolModel rol, List<MascotasModel> mascotasModels) {
         this.cedula = cedula;
         this.name = name;
         this.email = email;
         this.celular = celular;
         this.contrasena = contrasena;
         this.rol=rol;
+        this.mascotasModels=mascotasModels;
     }
 
+    public List<MascotasModel> getMascotasModels() {
+        return mascotasModels;
+    }
+
+    public void setMascotasModels(List<MascotasModel> mascotasModels) {
+        this.mascotasModels = mascotasModels;
+    }
 
     public Long getCedula() {
         return cedula;

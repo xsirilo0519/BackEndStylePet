@@ -1,7 +1,5 @@
 package com.StylePet.StylePet.Mascotas;
 
-import com.StylePet.StylePet.Rol.RolModel;
-import com.StylePet.StylePet.Rol.RolService;
 import com.StylePet.StylePet.TipoMascota.TipoModel;
 import com.StylePet.StylePet.TipoMascota.TipoService;
 import com.StylePet.StylePet.Usuarios.UsuarioEntity;
@@ -13,7 +11,6 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 
 @Service
@@ -101,7 +98,9 @@ public class MascotasService {
 
     public MascotasModel convertEntityToModel(MascotaEntity mascota){
             TipoModel tipoModel=tipoService.buscarById(mascota.getTipo());
-            UsuariosModel usuariosModel=usuariosService.converEntityToModel(usuariosService.findByCedula(mascota.getPropietario()).get());
+            UsuarioEntity usuarioEntity= usuariosService.findByCedula(mascota.getPropietario()).get();
+            usuarioEntity.setMisMascotas(null);
+            UsuariosModel usuariosModel=usuariosService.converEntityToModel(usuarioEntity);
         return new MascotasModel(mascota.getCodigo(), mascota.getName(),tipoModel, usuariosModel);
     }
 

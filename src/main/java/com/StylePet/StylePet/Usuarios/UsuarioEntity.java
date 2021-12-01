@@ -1,10 +1,6 @@
 package com.StylePet.StylePet.Usuarios;
 
 import com.StylePet.StylePet.Mascotas.MascotaEntity;
-import com.StylePet.StylePet.Rol.RolEntity;
-import com.StylePet.StylePet.Rol.RolModel;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.util.List;

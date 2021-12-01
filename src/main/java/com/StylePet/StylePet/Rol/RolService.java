@@ -16,7 +16,7 @@ public class RolService {
             RolModel rolModel= new RolModel(rolEntity.get().getId(),rolEntity.get().getName());
             return rolModel;
         }
-         return null;
+        return null;
     }
 
 }

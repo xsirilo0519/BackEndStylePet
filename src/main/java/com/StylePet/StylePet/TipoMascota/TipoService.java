@@ -8,12 +8,12 @@ import java.util.Optional;
 @Service
 public class TipoService {
     @Autowired
-    TipoRepository rolRepository;
+    TipoRepository tipoRepository;
 
     public TipoModel buscarById(Integer id){
-        Optional<TipoEntity> mascotaEntity=rolRepository.findById(id);
-        if(mascotaEntity.isPresent()){
-            TipoModel tipoModel= new TipoModel(mascotaEntity.get().getId(),mascotaEntity.get().getName());
+        Optional<TipoEntity> tipoEntity=tipoRepository.findById(id);
+        if(tipoEntity.isPresent()){
+            TipoModel tipoModel= new TipoModel(tipoEntity.get().getId(),tipoEntity.get().getName());
             return tipoModel;
         }
          return null;

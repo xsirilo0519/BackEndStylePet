@@ -1,5 +1,4 @@
 package com.StylePet.StylePet.Rol;
-
 public class RolModel {
     private Integer id;
     private String name;
