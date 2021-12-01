@@ -35,9 +35,7 @@ public class MascotasService {
                     .forEach(mascota -> {
                                 TipoModel tipoModel = tipoService.buscarById(mascota.getTipo());
                                 Optional<UsuarioEntity> usuarioModel=usuariosService.findByCedula(mascota.getPropietario());
-                                if (usuarioModel.isPresent()){
-                                    usuarioModel.get().setRol(null);
-                                }
+                                usuarioModel.get().setRol(null);
                                 UsuariosModel usuariosModel=usuariosService.converEntityToModel(usuarioModel.get());
                         mascotasModels.add(new MascotasModel(mascota.getCodigo(), mascota.getName(), tipoModel,usuariosModel));
                             }
@@ -50,9 +48,9 @@ public class MascotasService {
     public MascotasModel guardar(MascotasModel mascota) {
         try{
              mascotaEntitys= convertModelToEntity(mascota);
-            if(usuariosService.findByCedula(mascotaEntitys.getPropietario()).isPresent() && (tipoService.buscarById(mascotaEntitys.getTipo())!=null)){
-                mascotaEntitys.setPropietario(null);
+            if(validar(mascotaEntitys)){
                 mascota=convertEntityToModel(mascotasRepository.save(mascotaEntitys));
+                mascota.setPropietario(null);
                 return mascota;
             }
         }catch (Exception e){
@@ -103,5 +101,9 @@ public class MascotasService {
         return new MascotasModel(mascota.getCodigo(), mascota.getName(),tipoModel, null);
     }
 
+    private boolean validar(MascotaEntity mascotaEntity){
+        return (usuariosService.findByCedula(mascotaEntitys.getPropietario()).isPresent() && (tipoService.buscarById(mascotaEntitys.getTipo())!=null));
+
+    }
 
 }
