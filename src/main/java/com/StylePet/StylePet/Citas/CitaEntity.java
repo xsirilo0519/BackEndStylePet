@@ -8,7 +8,7 @@ public class CitaEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long codigo;
-    private Long codigo_mascota;
+    private Long codigomascota;
     private Integer id_corte;
     private Long estilista;
     private String hora;
@@ -19,14 +19,14 @@ public class CitaEntity {
 
     public CitaEntity(Long codigo, Long id_mascota, Integer corte, Long estilista,String hora) {
         this.codigo=codigo;
-        this.codigo_mascota=id_mascota;
+        this.codigomascota=id_mascota;
         this.estilista=estilista;
         this.id_corte=corte;
         this.hora=hora;
     }
 
     public CitaEntity( Long id_mascota, Integer corte, Long estilista,String hora) {
-        this.codigo_mascota=id_mascota;
+        this.codigomascota=id_mascota;
         this.estilista=estilista;
         this.id_corte=corte;
         this.hora=hora;
@@ -40,6 +40,15 @@ public class CitaEntity {
         this.hora = hora;
     }
 
+
+    public Long getCodigomascota() {
+        return codigomascota;
+    }
+
+    public void setCodigomascota(Long codigomascota) {
+        this.codigomascota = codigomascota;
+    }
+
     public Long getCodigo() {
         return codigo;
     }
@@ -48,13 +57,6 @@ public class CitaEntity {
         this.codigo = codigo;
     }
 
-    public Long getCodigo_mascota() {
-        return codigo_mascota;
-    }
-
-    public void setCodigo_mascota(Long codigo_mascota) {
-        this.codigo_mascota = codigo_mascota;
-    }
 
     public Integer getId_corte() {
         return id_corte;

@@ -8,9 +8,13 @@ import com.StylePet.StylePet.Mascotas.MascotaEntity;
 import com.StylePet.StylePet.Mascotas.MascotasModel;
 import com.StylePet.StylePet.Mascotas.MascotasService;
 
+import com.StylePet.StylePet.Usuarios.LoginModel;
+import com.StylePet.StylePet.Usuarios.UsuarioEntity;
+import com.StylePet.StylePet.Usuarios.UsuariosModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.swing.text.html.parser.Entity;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -40,7 +44,7 @@ public class CitasService {
                     .forEach(cita -> {
                         CortesModel cortesModel = cortesService.buscarById(cita.getId_corte());
                         EstilistasModel estilistasModel= estilistasService.buscarById(cita.getEstilista());
-                        Optional<MascotaEntity> mascotaEntity=mascotasService.findByCode(cita.getCodigo_mascota());
+                        Optional<MascotaEntity> mascotaEntity=mascotasService.findByCode(cita.getCodigomascota());
                         MascotasModel mascotasModel = mascotasService.convertEntityToModel(mascotaEntity.get());
                         citasModels.add(new CitasModel(cita.getCodigo(),mascotasModel, cortesModel,estilistasModel,cita.getHora()));
                             }
@@ -53,7 +57,7 @@ public class CitasService {
     public CitasModel guardar(CitasModel citasModel) {
         try{
             CitaEntity citaEntity= convertModelToEntity(citasModel);
-            if(mascotasService.findByCode(citaEntity.getCodigo_mascota()).isPresent()
+            if(mascotasService.findByCode(citaEntity.getCodigomascota()).isPresent()
                     && (cortesService.buscarById(citaEntity.getId_corte())!=null)
                     && (estilistasService.buscarById(citaEntity.getEstilista())!=null)){
 
@@ -73,6 +77,22 @@ public class CitasService {
         return false;
     }
 
+    public List<CitasModel> findByPet(Long mascota){
+        List<CitaEntity> listCita =  citasRepository.findByCodigomascota(mascota);
+        if(!listCita.isEmpty()){
+            return listEntityToModel(listCita);
+        }
+        return null;
+    }
+
+    private List<CitasModel> listEntityToModel(List<CitaEntity> list){
+        List<CitasModel> listmodel=new ArrayList<>();
+        list.forEach(item->{
+            listmodel.add(convertEntityToModel(item));
+        });
+        return listmodel;
+    }
+
     private Optional<CitaEntity> findByCode(Long codigo){
        return (Optional<CitaEntity>) citasRepository.findById(codigo);
     }
@@ -84,7 +104,7 @@ public class CitasService {
     private CitasModel convertEntityToModel(CitaEntity citas){
         CortesModel cortesModel = cortesService.buscarById(citas.getId_corte());
         EstilistasModel estilistasModel= estilistasService.buscarById(citas.getEstilista());
-        Optional<MascotaEntity> mascotaEntity=mascotasService.findByCode(citas.getCodigo_mascota());
+        Optional<MascotaEntity> mascotaEntity=mascotasService.findByCode(citas.getCodigomascota());
         MascotasModel mascotasModel = mascotasService.convertEntityToModel(mascotaEntity.get());
         return new CitasModel(citas.getCodigo(),mascotasModel,cortesModel ,estilistasModel ,citas.getHora());
     }

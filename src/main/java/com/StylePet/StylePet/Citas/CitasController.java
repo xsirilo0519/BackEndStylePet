@@ -19,6 +19,10 @@ public class CitasController {
     public List<CitasModel> listaDeCitas(){
          return  CitasService.findAll();
     }
+    @GetMapping(value="/buscar/{codigo}")
+    public List<CitasModel> listaDeCitas(@PathVariable("codigo") Long codigo){
+        return  CitasService.findByPet(codigo);
+    }
 
     @PostMapping(value = "/agregar")
     public CitasModel guardar(@RequestBody CitasModel citasModel){

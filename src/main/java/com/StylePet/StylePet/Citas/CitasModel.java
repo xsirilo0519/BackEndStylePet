@@ -9,14 +9,14 @@ import com.StylePet.StylePet.Usuarios.UsuariosModel;
 public class CitasModel {
 
     private Long codigo;
-    private MascotasModel codigo_mascota;
+    private MascotasModel codigomascota;
     private CortesModel id_corte;
     private EstilistasModel estilista;
     private String hora;
 
-    public CitasModel(Long codigo, MascotasModel codigo_mascota, CortesModel id_corte, EstilistasModel estilista,String hora) {
+    public CitasModel(Long codigo, MascotasModel codigomascota, CortesModel id_corte, EstilistasModel estilista,String hora) {
         this.codigo = codigo;
-        this.codigo_mascota = codigo_mascota;
+        this.codigomascota = codigomascota;
         this.id_corte = id_corte;
         this.estilista = estilista;
         this.hora=hora;
@@ -39,11 +39,11 @@ public class CitasModel {
     }
 
     public MascotasModel getCodigo_mascota() {
-        return codigo_mascota;
+        return codigomascota;
     }
 
-    public void setCodigo_mascota(MascotasModel codigo_mascota) {
-        this.codigo_mascota = codigo_mascota;
+    public void setCodigo_mascota(MascotasModel codigomascota) {
+        this.codigomascota = codigomascota;
     }
 
     public CortesModel getId_corte() {
