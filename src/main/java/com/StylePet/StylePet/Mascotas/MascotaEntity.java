@@ -1,8 +1,13 @@
 package com.StylePet.StylePet.Mascotas;
 
+import com.StylePet.StylePet.Citas.CitaEntity;
+import com.StylePet.StylePet.Usuarios.UsuarioEntity;
+
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
+@Table(name = "mascota")
 public class MascotaEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,6 +34,17 @@ public class MascotaEntity {
         this.propietario=propietario;
     }
 
+    @OneToMany(cascade = CascadeType.REMOVE)
+    @JoinColumn(name = "codigo_mascota", updatable = false)
+    private List<CitaEntity> citaEntities;
+
+    public List<CitaEntity> getCitaEntities() {
+        return citaEntities;
+    }
+
+    public void setCitaEntities(List<CitaEntity> citaEntities) {
+        this.citaEntities = citaEntities;
+    }
 
     public Long getCodigo() {
         return codigo;

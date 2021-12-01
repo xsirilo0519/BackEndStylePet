@@ -10,6 +10,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
+@Table(name = "usuario")
 public class UsuarioEntity {
     @Id
     @Column(updatable = false,unique = true)

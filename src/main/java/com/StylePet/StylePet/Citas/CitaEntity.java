@@ -3,6 +3,7 @@ package com.StylePet.StylePet.Citas;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "cita")
 public class CitaEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

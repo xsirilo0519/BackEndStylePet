@@ -22,11 +22,6 @@ public class MascotasModel {
         this.tipo=tipoModel;
         this.propietario=usuario;
     }
-    public MascotasModel(String name, TipoModel tipoModel, UsuariosModel usuario) {
-        this.name=name;
-        this.tipo=tipoModel;
-        this.propietario=usuario;
-    }
 
 
     public Long getCodigo() {

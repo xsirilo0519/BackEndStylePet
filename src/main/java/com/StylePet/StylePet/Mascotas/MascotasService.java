@@ -57,6 +57,7 @@ public class MascotasService {
                 return mascota;
             }
         }catch (Exception e){
+            System.out.println("\n -------------------------------------------------");
             System.out.println(e.getMessage());
         }
         return null;
@@ -73,6 +74,7 @@ public class MascotasService {
                 return mascota;
             }
         }catch (Exception e){
+            System.out.println("\n -------------------------------------------------");
             System.out.println(e.getMessage());
         }
         return null;
@@ -93,10 +95,7 @@ public class MascotasService {
 
 
     public MascotaEntity convertModelToEntity(MascotasModel mascota){
-        if(mascota.getCodigo()!=null){
         return new MascotaEntity(mascota.getCodigo(), mascota.getName(), mascota.getTipo().getId(), mascota.getPropietario().getCedula());
-        }
-        return new MascotaEntity(mascota.getName(), mascota.getTipo().getId(), mascota.getPropietario().getCedula());
     }
 
     public MascotasModel convertEntityToModel(MascotaEntity mascota){
