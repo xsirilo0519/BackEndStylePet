@@ -1,7 +1,10 @@
 package com.StylePet.StylePet.Usuarios;
 
+import com.StylePet.StylePet.Mascotas.MascotasModel;
 import com.StylePet.StylePet.Rol.RolEntity;
 import com.StylePet.StylePet.Rol.RolModel;
+
+import java.util.List;
 
 public class UsuariosModel {
 
@@ -21,10 +24,10 @@ public class UsuariosModel {
         this.rol=rol;
     }
 
+
     public Long getCedula() {
         return cedula;
     }
-
     public void setCedula(Long cedula) {
         this.cedula = cedula;
     }

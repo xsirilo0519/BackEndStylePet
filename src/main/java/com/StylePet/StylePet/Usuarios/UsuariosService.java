@@ -96,6 +96,7 @@ public class UsuariosService {
     }
 
     public UsuariosModel converEntityToModel(UsuarioEntity user) {
+
         if (user.getRol()==null){
             return new UsuariosModel(user.getCedula(), user.getName(), user.getEmail(), user.getCelular(), user.getContrasena(),null);
         }

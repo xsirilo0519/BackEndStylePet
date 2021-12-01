@@ -14,6 +14,9 @@ public class EstilistasEntity {
     @Column(unique = true,nullable = false)
     private String name;
 
+    public EstilistasEntity() {
+    }
+
     @OneToMany(cascade = CascadeType.REMOVE,orphanRemoval = true)
     @JoinColumn(name = "estilista")
     private List<CitaEntity> citaEntities;

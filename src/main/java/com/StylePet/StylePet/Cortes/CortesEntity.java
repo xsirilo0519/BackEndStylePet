@@ -21,7 +21,10 @@ public class CortesEntity {
     @JoinColumn(name = "id_corte")
     private List<CitaEntity> citaEntities;
 
-    public CortesEntity( String name, Double precio) {
+    public CortesEntity() {
+    }
+
+    public CortesEntity(String name, Double precio) {
         this.name = name;
         this.precio = precio;
     }

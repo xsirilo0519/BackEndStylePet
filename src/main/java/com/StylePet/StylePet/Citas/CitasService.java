@@ -7,11 +7,7 @@ import com.StylePet.StylePet.Estilistas.EstilistasService;
 import com.StylePet.StylePet.Mascotas.MascotaEntity;
 import com.StylePet.StylePet.Mascotas.MascotasModel;
 import com.StylePet.StylePet.Mascotas.MascotasService;
-import com.StylePet.StylePet.TipoMascota.TipoModel;
-import com.StylePet.StylePet.TipoMascota.TipoService;
-import com.StylePet.StylePet.Usuarios.UsuarioEntity;
-import com.StylePet.StylePet.Usuarios.UsuariosModel;
-import com.StylePet.StylePet.Usuarios.UsuariosService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -78,6 +74,7 @@ public class CitasService {
     public CitaEntity convertModelToEntity(CitasModel citasModel){
         return new CitaEntity(citasModel.getCodigo(),citasModel.getCodigo_mascota().getCodigo(), citasModel.getId_corte().getId(), citasModel.getEstilista().getCedula());
     }
+
 
 
 }

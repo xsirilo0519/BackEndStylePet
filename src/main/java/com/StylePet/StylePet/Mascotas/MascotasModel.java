@@ -1,13 +1,8 @@
 package com.StylePet.StylePet.Mascotas;
 
-import com.StylePet.StylePet.Rol.RolModel;
 import com.StylePet.StylePet.TipoMascota.TipoModel;
-import com.StylePet.StylePet.Usuarios.UsuarioEntity;
 import com.StylePet.StylePet.Usuarios.UsuariosModel;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 
 public class MascotasModel {
 
