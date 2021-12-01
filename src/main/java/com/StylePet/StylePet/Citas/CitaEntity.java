@@ -11,22 +11,33 @@ public class CitaEntity {
     private Long codigo_mascota;
     private Integer id_corte;
     private Long estilista;
+    private String hora;
 
     public CitaEntity(){
         super();
     }
 
-    public CitaEntity(Long codigo, Long id_mascota, Integer corte, Long estilista) {
+    public CitaEntity(Long codigo, Long id_mascota, Integer corte, Long estilista,String hora) {
         this.codigo=codigo;
         this.codigo_mascota=id_mascota;
         this.estilista=estilista;
         this.id_corte=corte;
+        this.hora=hora;
     }
 
-    public CitaEntity( Long id_mascota, Integer corte, Long estilista) {
+    public CitaEntity( Long id_mascota, Integer corte, Long estilista,String hora) {
         this.codigo_mascota=id_mascota;
         this.estilista=estilista;
         this.id_corte=corte;
+        this.hora=hora;
+    }
+
+    public String getHora() {
+        return hora;
+    }
+
+    public void setHora(String hora) {
+        this.hora = hora;
     }
 
     public Long getCodigo() {

@@ -12,12 +12,22 @@ public class CitasModel {
     private MascotasModel codigo_mascota;
     private CortesModel id_corte;
     private EstilistasModel estilista;
+    private String hora;
 
-    public CitasModel(Long codigo, MascotasModel codigo_mascota, CortesModel id_corte, EstilistasModel estilista) {
+    public CitasModel(Long codigo, MascotasModel codigo_mascota, CortesModel id_corte, EstilistasModel estilista,String hora) {
         this.codigo = codigo;
         this.codigo_mascota = codigo_mascota;
         this.id_corte = id_corte;
         this.estilista = estilista;
+        this.hora=hora;
+    }
+
+    public String getHora() {
+        return hora;
+    }
+
+    public void setHora(String hora) {
+        this.hora = hora;
     }
 
     public Long getCodigo() {

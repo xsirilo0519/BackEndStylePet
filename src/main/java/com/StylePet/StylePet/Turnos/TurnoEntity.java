@@ -17,6 +17,13 @@ public class TurnoEntity {
     public TurnoEntity() {
     }
 
+    public TurnoEntity(Integer id, String turno, Boolean estado, Long cedula) {
+        this.id=id;
+        this.turno=turno;
+        this.estado=estado;
+        this.ced_estilista=cedula;
+    }
+
     public Integer getId() {
         return id;
     }

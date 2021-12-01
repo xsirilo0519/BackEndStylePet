@@ -21,12 +21,21 @@ public class CitasController {
     }
 
     @PostMapping(value = "/agregar")
-    public ResponseEntity<String> guardar(@RequestBody CitasModel citasModel){
-        citasModel= CitasService.guardar(citasModel);
-        if(citasModel!= null){
-            return new ResponseEntity<String>("Mascota Registrada",HttpStatus.OK);
+    public CitasModel guardar(@RequestBody CitasModel citasModel){
+        return CitasService.guardar(citasModel);
+    }
+
+    @PutMapping(value = "/editar")
+    public CitasModel editar(@RequestBody CitasModel citasModel){
+        return CitasService.guardar(citasModel);
+    }
+
+    @DeleteMapping(value="/eliminar/{codigo}")
+    public ResponseEntity<String> eliminar(@PathVariable("codigo") Long codigo){
+        if(CitasService.eliminar(codigo)){
+            return new ResponseEntity<String>("Mascota Eliminada",HttpStatus.OK);
         }
-        return  new ResponseEntity<String>("Los datos no son validos o ya se encuentra registrada la mascota",HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<String>("La mascota no fue encontrado",HttpStatus.BAD_REQUEST);
     }
 
 }

@@ -42,7 +42,7 @@ public class CitasService {
                         EstilistasModel estilistasModel= estilistasService.buscarById(cita.getEstilista());
                         Optional<MascotaEntity> mascotaEntity=mascotasService.findByCode(cita.getCodigo_mascota());
                         MascotasModel mascotasModel = mascotasService.convertEntityToModel(mascotaEntity.get());
-                        citasModels.add(new CitasModel(cita.getCodigo(),mascotasModel, cortesModel,estilistasModel));
+                        citasModels.add(new CitasModel(cita.getCodigo(),mascotasModel, cortesModel,estilistasModel,cita.getHora()));
                             }
                     );
             return citasModels;
@@ -57,13 +57,20 @@ public class CitasService {
                     && (cortesService.buscarById(citaEntity.getId_corte())!=null)
                     && (estilistasService.buscarById(citaEntity.getEstilista())!=null)){
 
-                citasRepository.save(citaEntity);
-                return citasModel;
+                return convertEntityToModel(citasRepository.save(citaEntity));
             }
         }catch (Exception e){
             System.out.println(e.getMessage());
         }
         return null;
+    }
+    public boolean eliminar(Long codigo){
+        Optional<CitaEntity> citaEntity=findByCode(codigo);
+        if(citaEntity.isPresent()) {
+            citasRepository.delete(citaEntity.get());
+            return true;
+        }
+        return false;
     }
 
     private Optional<CitaEntity> findByCode(Long codigo){
@@ -71,8 +78,15 @@ public class CitasService {
     }
 
 
-    public CitaEntity convertModelToEntity(CitasModel citasModel){
-        return new CitaEntity(citasModel.getCodigo(),citasModel.getCodigo_mascota().getCodigo(), citasModel.getId_corte().getId(), citasModel.getEstilista().getCedula());
+    private CitaEntity convertModelToEntity(CitasModel citasModel){
+        return new CitaEntity(citasModel.getCodigo(),citasModel.getCodigo_mascota().getCodigo(), citasModel.getId_corte().getId(), citasModel.getEstilista().getCedula(),citasModel.getHora());
+    }
+    private CitasModel convertEntityToModel(CitaEntity citas){
+        CortesModel cortesModel = cortesService.buscarById(citas.getId_corte());
+        EstilistasModel estilistasModel= estilistasService.buscarById(citas.getEstilista());
+        Optional<MascotaEntity> mascotaEntity=mascotasService.findByCode(citas.getCodigo_mascota());
+        MascotasModel mascotasModel = mascotasService.convertEntityToModel(mascotaEntity.get());
+        return new CitasModel(citas.getCodigo(),mascotasModel,cortesModel ,estilistasModel ,citas.getHora());
     }
 
 

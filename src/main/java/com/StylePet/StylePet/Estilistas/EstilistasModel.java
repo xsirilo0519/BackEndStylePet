@@ -9,11 +9,6 @@ public class EstilistasModel {
     private String name;
     private List<TurnosModel> turnos;
 
-    public EstilistasModel(Long cedula, String name) {
-        this.cedula = cedula;
-        this.name = name;
-    }
-
     public EstilistasModel(Long cedula, String name, List<TurnosModel> turnos) {
         this.cedula = cedula;
         this.name = name;

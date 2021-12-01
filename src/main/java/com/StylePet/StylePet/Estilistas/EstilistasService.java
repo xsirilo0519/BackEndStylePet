@@ -19,7 +19,7 @@ public class EstilistasService {
     public EstilistasModel buscarById(Long id){
         Optional<EstilistasEntity> estilistasEntity =cortesRepository.findById(id);
         if(estilistasEntity.isPresent()){
-            EstilistasModel estilistasModel= new EstilistasModel(estilistasEntity.get().getCedula(),estilistasEntity.get().getName());
+            EstilistasModel estilistasModel= new EstilistasModel(estilistasEntity.get().getCedula(),estilistasEntity.get().getName(),null);
             return estilistasModel;
         }
          return null;
