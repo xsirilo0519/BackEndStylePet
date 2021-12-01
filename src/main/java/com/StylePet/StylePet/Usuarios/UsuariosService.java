@@ -69,15 +69,6 @@ public class UsuariosService {
         return null;
     }
 
-    public boolean eliminar(Long cedula){
-        Optional<UsuarioEntity> userEntity=findByCedula(cedula);
-        if(userEntity.isPresent()) {
-            usuariosRepository.delete(userEntity.get());
-            return true;
-        }
-        return false;
-    }
-
     public UsuariosModel login(LoginModel loginModel){
        Optional<UsuarioEntity> usuarioEntity=  usuariosRepository.findByEmailAndContrasena(loginModel.getEmail(),loginModel.getContrasena());
         if(usuarioEntity.isPresent()){

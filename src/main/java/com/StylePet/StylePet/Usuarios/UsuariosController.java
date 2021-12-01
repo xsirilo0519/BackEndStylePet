@@ -15,7 +15,7 @@ import java.util.List;
 @RequestMapping("Usuario")
 public class UsuariosController {
     @Autowired
-    UsuariosService usuariosService;
+    private UsuariosService usuariosService;
 
     @GetMapping(value="/buscar")
     public List<UsuariosModel> listarUsuarios(){
@@ -38,14 +38,6 @@ public class UsuariosController {
             return new ResponseEntity<UsuariosModel>(usuariosModel,HttpStatus.OK);
         }
         return  new ResponseEntity<>(usuariosModel,HttpStatus.BAD_REQUEST);
-    }
-
-    @DeleteMapping(value="/eliminar/{cedula}")
-    public ResponseEntity<String> eliminar(@PathVariable("cedula") Long cedula){
-        if(usuariosService.eliminar(cedula)){
-            return new ResponseEntity<String>("Usuario Eliminado",HttpStatus.OK);
-        }
-        return new ResponseEntity<String>("El usuario no fue encontrado",HttpStatus.BAD_REQUEST);
     }
 
     @PostMapping(value = "/login")
