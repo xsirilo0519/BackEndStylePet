@@ -1,4 +1,4 @@
-package com.StylePet.StylePet.Cortes;
+package com.StylePet.StylePet.Estilistas;
 
 import com.StylePet.StylePet.Citas.CitaEntity;
 import com.StylePet.StylePet.Usuarios.UsuarioEntity;
@@ -7,23 +7,15 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-public class CortesEntity {
+public class EstilistasEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long cedula;
     @Column(unique = true,nullable = false)
     private String name;
-    @Column(unique=true,nullable = false)
-    private Double precio;
 
     @OneToMany(cascade = CascadeType.REMOVE,orphanRemoval = true)
-    @JoinColumn(name = "id_corte")
+    @JoinColumn(name = "estilista")
     private List<CitaEntity> citaEntities;
-
-    public CortesEntity( String name, Double precio) {
-        this.name = name;
-        this.precio = precio;
-    }
 
     public List<CitaEntity> getCitaEntities() {
         return citaEntities;
@@ -33,12 +25,12 @@ public class CortesEntity {
         this.citaEntities = citaEntities;
     }
 
-    public Integer getId() {
-        return id;
+    public Long getCedula() {
+        return cedula;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setCedula(Long cedula) {
+        this.cedula = cedula;
     }
 
     public String getName() {
@@ -47,13 +39,5 @@ public class CortesEntity {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Double getPrecio() {
-        return precio;
-    }
-
-    public void setPrecio(Double precio) {
-        this.precio = precio;
     }
 }

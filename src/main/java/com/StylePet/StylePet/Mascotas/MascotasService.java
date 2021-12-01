@@ -87,21 +87,22 @@ public class MascotasService {
         return false;
     }
 
-    private Optional<MascotaEntity> findByCode(Long codigo){
+    public Optional<MascotaEntity> findByCode(Long codigo){
        return (Optional<MascotaEntity>) mascotasRepository.findById(codigo);
     }
 
 
     public MascotaEntity convertModelToEntity(MascotasModel mascota){
+        if(mascota.getCodigo()!=null){
         return new MascotaEntity(mascota.getCodigo(), mascota.getName(), mascota.getTipo().getId(), mascota.getPropietario().getCedula());
+        }
+        return new MascotaEntity(mascota.getName(), mascota.getTipo().getId(), mascota.getPropietario().getCedula());
     }
 
-//    public MascotasModel converEntityToModel(MascotaEntity mascota) {
-//        if (mascota.getTipo()==null){
-//            return new MascotasModel(mascota.getCodigo(), mascota.getName(), mascota.getTipo(), mascota.getPropietario());
-//        }
-//        TipoModel tipoModel = tipoService.buscarById(mascota.getTipo());
-//        return new MascotasModel(mascota.getCodigo(), mascota.getName(), tipoModel, mascota.getPropietario());
-//    }
+    public MascotasModel convertEntityToModel(MascotaEntity mascota){
+            TipoModel tipoModel=tipoService.buscarById(mascota.getTipo());
+            UsuariosModel usuariosModel=usuariosService.converEntityToModel(usuariosService.findByCedula(mascota.getPropietario()).get());
+        return new MascotasModel(mascota.getCodigo(), mascota.getName(),tipoModel, usuariosModel);
+    }
 
 }

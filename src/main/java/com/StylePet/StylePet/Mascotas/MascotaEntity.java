@@ -23,6 +23,12 @@ public class MascotaEntity {
         this.tipo=tipo;
         this.propietario=propietario;
     }
+    public MascotaEntity(String name, Integer tipo, Long propietario) {
+        this.name=name;
+        this.tipo=tipo;
+        this.propietario=propietario;
+    }
+
 
     public Long getCodigo() {
         return codigo;

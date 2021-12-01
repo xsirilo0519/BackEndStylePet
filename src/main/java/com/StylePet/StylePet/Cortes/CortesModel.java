@@ -3,9 +3,9 @@ package com.StylePet.StylePet.Cortes;
 public class CortesModel {
     private Integer id;
     private String name;
-    private double precio;
+    private Double precio;
 
-    public CortesModel(int id, String name,double precio) {
+    public CortesModel(int id, String name,Double precio) {
         this.id=id;
         this.name=name;
         this.precio=precio;
@@ -27,11 +27,11 @@ public class CortesModel {
         this.name = name;
     }
 
-    public double getPrecio() {
+    public Double getPrecio() {
         return precio;
     }
 
-    public void setPrecio(double precio) {
+    public void setPrecio(Double precio) {
         this.precio = precio;
     }
 }
