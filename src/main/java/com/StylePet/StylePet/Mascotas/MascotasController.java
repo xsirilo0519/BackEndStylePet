@@ -1,25 +1,16 @@
 package com.StylePet.StylePet.Mascotas;
 
-import com.StylePet.StylePet.Usuarios.UsuariosModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-
 
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("Mascotas")
 public class MascotasController {
     @Autowired
-    MascotasService mascotasService;
-
-    @GetMapping(value="/buscar")
-    public List<MascotasModel> listaDeMascotas(){
-         return  mascotasService.findAll();
-    }
+    private MascotasService mascotasService;
 
     @PostMapping(value = "/agregar")
     public MascotasModel guardar(@RequestBody MascotasModel mascotasModel){
@@ -31,7 +22,7 @@ public class MascotasController {
         if(mascotasModel!= null){
             return new ResponseEntity<MascotasModel>(mascotasModel,HttpStatus.OK);
         }
-        return  new ResponseEntity<>(mascotasModel,HttpStatus.BAD_REQUEST);
+        return  new ResponseEntity<>(null,HttpStatus.BAD_REQUEST);
     }
     @DeleteMapping(value="/eliminar/{codigo}")
     public ResponseEntity<String> eliminar(@PathVariable("codigo") Long codigo){

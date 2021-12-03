@@ -2,7 +2,6 @@ package com.StylePet.StylePet.Usuarios;
 
 import com.StylePet.StylePet.Mascotas.MascotasModel;
 import com.StylePet.StylePet.Rol.RolModel;
-import com.StylePet.StylePet.Turnos.TurnosModel;
 
 import java.util.List;
 

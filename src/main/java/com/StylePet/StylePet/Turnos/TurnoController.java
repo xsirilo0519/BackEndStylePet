@@ -1,14 +1,9 @@
 package com.StylePet.StylePet.Turnos;
 
-import com.StylePet.StylePet.Estilistas.EstilistasModel;
-import com.StylePet.StylePet.Estilistas.EstilistasService;
-import com.StylePet.StylePet.Usuarios.UsuariosModel;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")

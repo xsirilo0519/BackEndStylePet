@@ -8,8 +8,6 @@ import com.StylePet.StylePet.Usuarios.UsuariosService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 
@@ -28,23 +26,6 @@ public class MascotasService {
     this.usuariosService=usuariosService;
     }
 
-    public List<MascotasModel> findAll(){
-        List<MascotasModel> mascotasModels = new ArrayList<MascotasModel>();
-        try {
-            mascotasRepository.findAll()
-                    .forEach(mascota -> {
-                                TipoModel tipoModel = tipoService.buscarById(mascota.getTipo());
-                                Optional<UsuarioEntity> usuarioModel=usuariosService.findByCedula(mascota.getPropietario());
-                                usuarioModel.get().setRol(null);
-                                UsuariosModel usuariosModel=usuariosService.converEntityToModel(usuarioModel.get());
-                        mascotasModels.add(new MascotasModel(mascota.getCodigo(), mascota.getName(), tipoModel,usuariosModel));
-                            }
-                    );
-            return mascotasModels;
-        }catch (Exception e){
-            return null;
-        }
-    }
     public MascotasModel guardar(MascotasModel mascota) {
         try{
              mascotaEntitys= convertModelToEntity(mascota);

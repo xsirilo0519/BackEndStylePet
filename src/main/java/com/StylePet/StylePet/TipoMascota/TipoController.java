@@ -1,7 +1,5 @@
 package com.StylePet.StylePet.TipoMascota;
 
-import com.StylePet.StylePet.Estilistas.EstilistasModel;
-import com.StylePet.StylePet.Estilistas.EstilistasService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;

@@ -7,14 +7,10 @@ import com.StylePet.StylePet.Estilistas.EstilistasService;
 import com.StylePet.StylePet.Mascotas.MascotaEntity;
 import com.StylePet.StylePet.Mascotas.MascotasModel;
 import com.StylePet.StylePet.Mascotas.MascotasService;
-
-import com.StylePet.StylePet.Usuarios.LoginModel;
-import com.StylePet.StylePet.Usuarios.UsuarioEntity;
-import com.StylePet.StylePet.Usuarios.UsuariosModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.swing.text.html.parser.Entity;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -37,29 +33,11 @@ public class CitasService {
     this.estilistasService=estilistasService;
     }
 
-    public List<CitasModel> findAll(){
-        List<CitasModel> citasModels = new ArrayList<CitasModel>();
-        try {
-            citasRepository.findAll()
-                    .forEach(cita -> {
-                        CortesModel cortesModel = cortesService.buscarById(cita.getId_corte());
-                        EstilistasModel estilistasModel= estilistasService.buscarById(cita.getEstilista());
-                        Optional<MascotaEntity> mascotaEntity=mascotasService.findByCode(cita.getCodigomascota());
-                        MascotasModel mascotasModel = mascotasService.convertEntityToModel(mascotaEntity.get());
-                        citasModels.add(new CitasModel(cita.getCodigo(),mascotasModel, cortesModel,estilistasModel,cita.getHora()));
-                            }
-                    );
-            return citasModels;
-        }catch (Exception e){
-            return null;
-        }
-    }
+
     public CitasModel guardar(CitasModel citasModel) {
         try{
             CitaEntity citaEntity= convertModelToEntity(citasModel);
-            if(mascotasService.findByCode(citaEntity.getCodigomascota()).isPresent()
-                    && (cortesService.buscarById(citaEntity.getId_corte())!=null)
-                    && (estilistasService.buscarById(citaEntity.getEstilista())!=null)){
+            if(validateData(citaEntity)){
 
                 return convertEntityToModel(citasRepository.save(citaEntity));
             }
@@ -83,6 +61,21 @@ public class CitasService {
             return listEntityToModel(listCita);
         }
         return null;
+    }
+
+    private boolean validateData(CitaEntity citaEntity){
+        return validateMascotaService(citaEntity) && validateCortesSerive(citaEntity)
+                && validateEstilistaService(citaEntity);
+    }
+
+    private boolean validateMascotaService(CitaEntity citaEntity){
+        return mascotasService.findByCode(citaEntity.getCodigomascota()).isPresent();
+    }
+    private boolean validateCortesSerive(CitaEntity citaEntity){
+        return cortesService.buscarById(citaEntity.getId_corte())!=null;
+    }
+    private boolean validateEstilistaService(CitaEntity citaEntity){
+        return estilistasService.buscarById(citaEntity.getEstilista())!=null;
     }
 
     private List<CitasModel> listEntityToModel(List<CitaEntity> list){

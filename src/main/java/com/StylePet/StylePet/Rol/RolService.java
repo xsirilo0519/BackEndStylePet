@@ -8,7 +8,7 @@ import java.util.Optional;
 @Service
 public class RolService {
     @Autowired
-    RolRepository rolRepository;
+    private RolRepository rolRepository;
 
     public RolModel buscarById(Integer id){
         Optional<RolEntity> rolEntity=rolRepository.findById(id);

@@ -1,8 +1,6 @@
 package com.StylePet.StylePet.Cortes;
 
 import com.StylePet.StylePet.Citas.CitaEntity;
-import com.StylePet.StylePet.Usuarios.UsuarioEntity;
-
 import javax.persistence.*;
 import java.util.List;
 

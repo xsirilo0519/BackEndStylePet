@@ -2,7 +2,6 @@ package com.StylePet.StylePet.Estilistas;
 
 import com.StylePet.StylePet.Citas.CitaEntity;
 import com.StylePet.StylePet.Turnos.TurnoEntity;
-import com.StylePet.StylePet.Usuarios.UsuarioEntity;
 
 import javax.persistence.*;
 import java.util.List;

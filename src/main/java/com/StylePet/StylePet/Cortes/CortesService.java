@@ -1,7 +1,5 @@
 package com.StylePet.StylePet.Cortes;
 
-import com.StylePet.StylePet.Estilistas.EstilistasEntity;
-import com.StylePet.StylePet.Estilistas.EstilistasModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

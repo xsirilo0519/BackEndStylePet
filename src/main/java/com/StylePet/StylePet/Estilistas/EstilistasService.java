@@ -1,7 +1,5 @@
 package com.StylePet.StylePet.Estilistas;
 
-import com.StylePet.StylePet.Mascotas.MascotaEntity;
-import com.StylePet.StylePet.Mascotas.MascotasModel;
 import com.StylePet.StylePet.Turnos.TurnoEntity;
 import com.StylePet.StylePet.Turnos.TurnosModel;
 import org.springframework.beans.factory.annotation.Autowired;

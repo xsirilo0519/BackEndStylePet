@@ -2,7 +2,6 @@ package com.StylePet.StylePet.Turnos;
 
 import com.StylePet.StylePet.Estilistas.EstilistasModel;
 
-import javax.persistence.Column;
 
 public class TurnosModel {
     private Integer id;
